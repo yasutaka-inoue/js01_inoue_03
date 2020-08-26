@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+  <h1>ジャンケン</h1>
+  <img class="top" src="./img/jyanken.jpg" alt="じゃんけんの画像">
+</header>
+
+<main>
+  <!-------------
+      gamecount 
+    ------------->
+  <div class="gamecount">
+    <ul>
+      <li id="three">3回戦</li>
+      <li id="five">5回戦</li>
+      <li id="ten">10回戦</li>
+    </ul>
+  </div>
+
+  <!-------------
+      batttle 
+    ------------->
+    <div class="text">あなたが出す手は？</div>
+    <ul>
+      <li id="gu_btn">グー</li>
+      <li id="cho_btn">チョキ</li>
+      <li id="par_btn">パー</li>
+    </ul>
+    <div class="text"><p>コンピュータの出した手は？</p>
+      <div id="pc_hands"></div>
+    </div>
+
+  <!-------------
+      Judgement
+    ------------->
+  <div id="judgement"></div>
+  <div class="total"><span id="win">0</span>勝<span id="lose">0</span>敗<span id="draw">0</span>引き分け</div>
+
+
+  <!-------------
+      modal(result)
+    ------------->
+  <section id="modalArea" class="modalArea">
+    <div id="modalBg" class="modalBg"></div>
+    <div class="modalWrapper">
+      <div class="modalContents">
+        <div id="finalresult">あなたの勝ちです！</div>
+      </div>
+      <div id="closeModal" class="closeModal">
+        <p>最初から遊ぶ</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer></footer>
+
+<script>
+//じゃんけん用のSCRIPTを書いてください
+
+function battleCount(n) {
+  var bcount = n;
+  console.log (n); 
+  return bcount;
+}
+let count = battleCount();
+// ---------------gamecount----------------
+$("#three").on("click", function(){
+    if(win + lose + draw >=1){
+      alert("あなたの手を選んでください");
+      return false;
+    }  
+    $("#three").css ("background", '#0066CC').css ("color", '#fff'); 
+    $("#five").css ("background", 'none').css ("color", 'black');
+    $("#ten").css ("background", 'none').css ("color", 'black');
+    count = battleCount(3);
+  });  
+
+$("#five").on("click", function(){
+    if(win + lose + draw >=1){
+      alert("あなたの手を選んでください");
+      return false;
+    }  
+    $("#five").css ("background", '#0066CC').css ("color", '#fff'); 
+    $("#three").css ("background", 'none').css ("color", 'black');
+    $("#ten").css ("background", 'none').css ("color", 'black');
+    count = battleCount(5);
+  });  
+
+$("#ten").on("click", function(){
+    if(win + lose + draw >=1){
+      alert("あなたの手を選んでください");
+      return false;
+    }  
+    $("#ten").css ("background", '#0066CC').css ("color", '#fff');
+    $("#three").css ("background", 'none').css ("color", 'black');
+    $("#five").css ("background", 'none').css ("color", 'black');
+    count = battleCount(10);
+  });  
+
+// --judgement-----------------------------------
+
+function judgement() {
+  switch (count) {
+  case 3:
+    if (win + lose + draw ==3) {
+      $('#modalArea').fadeIn();
+      if (win >= 2) {
+        $("#finalresult").html("<p>あなたの勝ちです！</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/win.jpg" alt="勝利の画像">');
+      }else if(lose >= 2) {
+        $("#finalresult").html("<p>あなたの負けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/lose.jpg" alt="敗北の画像">');
+      }else{
+        $("#finalresult").html("<p>引き分けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/draw.jpg" alt="引き分けの画像">');
+      };
+      $('#closeModal , #modalBg').click(function(){
+        $('#modalArea').fadeOut();
+        $("#gu_btn").css ("background", 'none').css ("color", 'black');
+        $("#cho_btn").css ("background", 'none').css ("color", 'black');
+        $("#par_btn").css ("background", 'none').css ("color", 'black');
+        $("#three").css ("background", 'none').css ("color", 'black');
+        win = 0;
+        $("#win").html(win);
+        lose = 0;
+        $("#lose").html(lose);
+        draw = 0;
+        $("#draw").html(draw);
+        $("#pc_hands").html('');
+        $("#pc_hands").append('');
+        $("#judgement").html('');
+        count = undefined;
+      });
+    }
+    break;
+  case 5:
+    if (win + lose + draw ==5) {
+      $('#modalArea').fadeIn();
+      if (win >= 3) {
+        $("#finalresult").html("<p>あなたの勝ちです！</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/win.jpg" alt="勝利の画像">');
+      }else if(lose >= 3) {
+        $("#finalresult").html("<p>あなたの負けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/lose.jpg" alt="敗北の画像">');
+      }else{
+        $("#finalresult").html("<p>引き分けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/draw.jpg" alt="引き分けの画像">');
+      };
+      $('#closeModal , #modalBg').click(function(){
+        $('#modalArea').fadeOut();
+        $("#gu_btn").css ("background", 'none').css ("color", 'black');
+        $("#cho_btn").css ("background", 'none').css ("color", 'black');
+        $("#par_btn").css ("background", 'none').css ("color", 'black');
+        $("#five").css ("background", 'none').css ("color", 'black');
+        win = 0;
+        $("#win").html(win);
+        lose = 0;
+        $("#lose").html(lose);
+        draw = 0;
+        $("#draw").html(draw);
+        $("#pc_hands").html('');
+        $("#pc_hands").append('');
+        $("#judgement").html('');
+        count = undefined;
+      });
+    }
+    break;
+  case 10:
+    if (win + lose + draw ==10) {
+      $('#modalArea').fadeIn();
+      if (win >= 4) {
+        $("#finalresult").html("<p>あなたの勝ちです！</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/win.jpg" alt="勝利の画像">');
+      }else if(lose >= 4) {
+        $("#finalresult").html("<p>あなたの負けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/lose.jpg" alt="敗北の画像">');
+      }else{
+        $("#finalresult").html("<p>引き分けです</p>");
+        $("#finalresult").append('<img class="result_img" src="./img/draw.jpg" alt="引き分けの画像">');
+      };
+      $('#closeModal , #modalBg').click(function(){
+        $('#modalArea').fadeOut();
+        $("#gu_btn").css ("background", 'none').css ("color", 'black');
+        $("#cho_btn").css ("background", 'none').css ("color", 'black');
+        $("#par_btn").css ("background", 'none').css ("color", 'black');
+        $("#ten").css ("background", 'none').css ("color", 'black');
+        win = 0;
+        $("#win").html(win);
+        lose = 0;
+        $("#lose").html(lose);
+        draw = 0;
+        $("#draw").html(draw);
+        $("#pc_hands").html('');
+        $("#pc_hands").append('');
+        $("#judgement").html('');
+        count = undefined;
+      });
+    }
+    break;
+}
+}
+   
+// --battle-----------------------------------
+let win = 0;
+let lose = 0;
+let draw = 0;
+
+  $("#gu_btn").on("click", function(){
+    if(count==undefined){
+      alert("対戦回数を選んでください");
+      return false;
+    }
+    $("#gu_btn").css ("background", '#0066CC').css ("color", '#fff');
+    $("#cho_btn").css ("background", 'none').css ("color", 'black');
+    $("#par_btn").css ("background", 'none').css ("color", 'black');
+    const ran = Math.ceil ( Math.random () *3 );
+    if (ran==1) {
+      $("#pc_hands").html('<p class="com">グー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/gu.jpg" alt="グーの画像">');
+      $("#judgement").html('<p class="result">あいこ</p>');
+      draw += 1;
+      $("#draw").html(draw);
+      judgement();
+    }
+    if (ran==2) {
+      $("#pc_hands").html('<p class="com">チョキ</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/choki.jpg" alt="チョキの画像">');
+      $("#judgement").html('<p class="result">勝ち</p>');
+      win += 1;
+      $("#win").html(win);
+      judgement();
+    }
+    if (ran==3) {
+      $("#pc_hands").html('<p class="com">パー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/par.jpg" alt="パーの画像">');
+      $("#judgement").html('<p class="result">負け</p>');
+      lose += 1;
+      $("#lose").html(lose);
+      judgement();
+    }
+  });
+
+  $("#cho_btn").on("click", function(){
+    if(count==undefined){
+      alert("対戦回数を選んでください");
+      return false;
+    }
+    $("#cho_btn").css ("background", '#0066CC').css ("color", '#fff');
+    $("#gu_btn").css ("background", 'none').css ("color", 'black');
+    $("#par_btn").css ("background", 'none').css ("color", 'black');
+    const ran = Math.ceil ( Math.random () *3 );
+    if (ran==1) {
+      $("#pc_hands").html('<p class="com">グー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/gu.jpg" alt="グーの画像">');
+      $("#judgement").html('<p class="result">負け</p>');
+      lose += 1;
+      $("#lose").html(lose);
+      judgement();
+    }
+    if (ran==2) {
+      $("#pc_hands").html('<p class="com">チョキ</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/choki.jpg" alt="チョキの画像">');
+      $("#judgement").html('<p class="result">あいこ</p>');
+      draw += 1;
+      $("#draw").html(draw);
+      judgement();
+    }
+    if (ran==3) {
+      $("#pc_hands").html('<p class="com">パー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/par.jpg" alt="パーの画像">');
+      $("#judgement").html('<p class="result">勝ち</p>');
+      win += 1;
+      $("#win").html(win);
+      judgement();
+    }
+  });
+    
+  $("#par_btn").on("click", function(){
+    if(count==undefined){
+      alert("対戦回数を選んでください");
+      return false;
+    }
+    $("#par_btn").css ("background", '#0066CC').css ("color", '#fff');
+    $("#cho_btn").css ("background", 'none').css ("color", 'black');
+    $("#gu_btn").css ("background", 'none').css ("color", 'black');
+    const ran = Math.ceil ( Math.random () *3 );
+    if (ran==1) {
+      $("#pc_hands").html('<p class="com">グー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/gu.jpg" alt="グーの画像">');
+      $("#judgement").html('<p class="result">勝ち</p>');
+      win += 1;
+      $("#win").html(win);
+      judgement();
+    }
+    if (ran==2) {
+      $("#pc_hands").html('<p class="com">チョキ</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/choki.jpg" alt="チョキの画像">');
+      $("#judgement").html('<p class="result">負け</p>');
+      lose += 1;
+      $("#lose").html(lose);
+      judgement();
+    }
+    if (ran==3) {
+      $("#pc_hands").html('<p class="com">パー</p>');
+      $("#pc_hands").append('<img class="com_img" src="./img/par.jpg" alt="パーの画像">');
+      $("#judgement").html('<p class="result">あいこ</p>');
+      draw += 1;
+      $("#draw").html(draw);
+      judgement();
+    }
+  });
+
+</script>
+</body>
+</html>
